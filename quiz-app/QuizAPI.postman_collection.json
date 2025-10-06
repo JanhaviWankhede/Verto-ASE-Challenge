@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "quiz-app-collection",
+    "name": "Quiz API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Quiz",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Math Quiz\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/quizzes", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "quizzes"] }
+      }
+    },
+    {
+      "name": "Add Single Choice Question",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"text\": \"What is 2 + 2?\",\n    \"type\": \"single\",\n    \"options\": [\n        {\"text\": \"3\", \"isCorrect\": false},\n        {\"text\": \"4\", \"isCorrect\": true}\n    ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/quizzes/{{quizId}}/questions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "quizzes", "{{quizId}}", "questions"]
+        }
+      }
+    },
+    {
+      "name": "Add Multiple Choice Question",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"text\": \"Select prime numbers\",\n    \"type\": \"multiple\",\n    \"options\": [\n        {\"text\": \"2\", \"isCorrect\": true},\n        {\"text\": \"3\", \"isCorrect\": true},\n        {\"text\": \"4\", \"isCorrect\": false}\n    ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/quizzes/{{quizId}}/questions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "quizzes", "{{quizId}}", "questions"]
+        }
+      }
+    },
+    {
+      "name": "Add Text Question",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"text\": \"Name the AI developed by OpenAI\",\n    \"type\": \"text\",\n    \"correctAnswer\": \"ChatGPT\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/quizzes/{{quizId}}/questions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "quizzes", "{{quizId}}", "questions"]
+        }
+      }
+    },
+    {
+      "name": "Get Questions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/quizzes/{{quizId}}/questions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "quizzes", "{{quizId}}", "questions"]
+        }
+      }
+    },
+    {
+      "name": "Submit Quiz Answers",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"answers\": [\n        {\n            \"questionId\": \"{{singleQuestionId}}\",\n            \"selectedOptionIds\": [\"{{singleCorrectOptionId}}\"]\n        },\n        {\n            \"questionId\": \"{{multipleQuestionId}}\",\n            \"selectedOptionIds\": [\"{{multipleOption1Id}}\",\"{{multipleOption2Id}}\"]\n        },\n        {\n            \"questionId\": \"{{textQuestionId}}\",\n            \"text\": \"ChatGPT\"\n        }\n    ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/quizzes/{{quizId}}/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "quizzes", "{{quizId}}", "submit"]
+        }
+      }
+    },
+    {
+      "name": "Get All Quizzes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/quizzes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "quizzes"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "quizId", "value": "" },
+    { "key": "singleQuestionId", "value": "" },
+    { "key": "singleCorrectOptionId", "value": "" },
+    { "key": "multipleQuestionId", "value": "" },
+    { "key": "multipleOption1Id", "value": "" },
+    { "key": "multipleOption2Id", "value": "" },
+    { "key": "textQuestionId", "value": "" }
+  ]
+}
