@@ -1,8 +1,3 @@
-/**
- * scoringService.js
- * Handles scoring logic for quizzes.
- */
-
 class ScoringService {
     /**
      * Calculates the score for a set of answers.
@@ -24,7 +19,7 @@ class ScoringService {
                         .filter(o => o.isCorrect)
                         .map(o => o._id.toString());
 
-                    const selectedOptionIds = userAnswer.selectedOptionIds.map(String);
+                    const selectedOptionIds = (userAnswer.selectedOptionIds || []).map(String);
 
                     // Full match required for multiple choice
                     const isCorrect =
@@ -36,7 +31,6 @@ class ScoringService {
                 }
 
                 case 'text': {
-                    // Simple text-based evaluation: exact match ignoring case
                     const correctText = question.correctAnswer?.trim().toLowerCase();
                     const userText = userAnswer.text?.trim().toLowerCase();
 
@@ -49,7 +43,7 @@ class ScoringService {
             }
         });
 
-        return { score, total: answers.length };
+        return { score, total: questions.length }; // ✅ total = number of questions
     }
 }
 
